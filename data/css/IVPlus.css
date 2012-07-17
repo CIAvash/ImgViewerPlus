@@ -1,0 +1,103 @@
+@media not print {
+    .ImgViewerPlusBody {
+        overflow: hidden;
+    }
+
+    .ImgViewerPlusBody .clear {
+        clear: both;
+    }
+
+    .ImgViewerPlusBody .pictxt {
+        text-indent: -99999px;
+	    font-size: 0;
+	    text-decoration: none;
+	    overflow: hidden;
+    }
+
+    .ImgViewerPlusBody .panel {
+        background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+        border: 3px solid #ccc;
+        opacity: 0.5;
+        z-index: 99999;
+    }
+
+    .ImgViewerPlusBody #ivp-toolbar {
+        border-top: 0;
+        border-left: 0;
+        border-radius: 0 0 20px 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 35px;
+        height: 310px;
+        padding: 0 5px 0 4px;
+    }
+
+    .ImgViewerPlusBody .button {
+        margin: 3px 0;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+    }
+
+    .ImgViewerPlusBody #ivp-toolbar #minimize {
+        margin-top: -1px;
+    }
+
+    .ImgViewerPlusBody #navigation-container {
+        position: fixed;
+        top: 6px;
+        left: 60px;
+    }
+
+    .ImgViewerPlusBody #navigation {
+        background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+        position: relative;
+        width: 89px;
+        height: 89px;
+        border-radius: 50px;
+        visibility: visible;
+    }
+
+    .ImgViewerPlusBody #navigation .button {
+        position: absolute;
+    }
+
+    .ImgViewerPlusBody #nav-up {
+        top: -6px;
+        left: 26px;
+    }
+
+    .ImgViewerPlusBody #nav-right {
+        top: 24px;
+        right: -1px;
+    }
+
+    .ImgViewerPlusBody #nav-down {
+        bottom: -4px;
+        left: 26px;
+    }
+
+    .ImgViewerPlusBody #nav-left {
+        top: 24px;
+        left: -3px;
+    }
+
+    .ImgViewerPlusBody #nav-reset {
+        top: 24px;
+        left: 26px;
+    }
+
+    .ImgViewerPlusBody img {
+        -moz-transition: -moz-transform 1s;
+    }
+}
+
+@media print {
+    .ImgViewerPlusBody #ivp-toolbar, .ImgViewerPlusBody #navigation-container {
+        display: none;
+    }
+    .ImgViewerPlusBody img {
+        -moz-transform: none !important;
+    }
+}

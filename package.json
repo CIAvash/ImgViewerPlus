@@ -1,0 +1,25 @@
+{
+    "name": "imgviewerplus", 
+    "license": "MPL 2.0", 
+    "author": "Siavash Askari Nasr", 
+    "version": "0.1", 
+    "fullName": "ImgViewerPlus", 
+    "id": "jid1-XhgQ9TyZs7M16g", 
+    "description": "ImgViewerPlus(Image Viewer Plus) adds zoom, rotate and light switch capabilities with smooth animations to Firefox image viewer. It also makes background and light colors customizable.",
+    "preferences": [
+        {
+            "type": "string",
+            "name": "bg_color",
+            "value": "#222",
+            "title": "Background Color",
+            "description": "Default: #222"
+        },
+        {
+            "type": "string",
+            "name": "light_color",
+            "value": "#f1f1f1",
+            "title": "Light Color",
+            "description": "Default: #f1f1f1"
+        }
+    ]
+}
