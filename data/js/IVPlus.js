@@ -130,10 +130,10 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     
     function light_switch() {
         if(lights === 'off') {
-            $('body').css('background', prefs['light_color']);
+            $('body').css('background-color', prefs['light_color']);
             lights = 'on';
         } else if(lights === 'on') {
-            $('body').css('background', prefs['bg_color']);
+            $('body').css('background-color', prefs['bg_color']);
             lights = 'off';
         }
     }
