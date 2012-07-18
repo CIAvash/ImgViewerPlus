@@ -5,7 +5,7 @@ ImgViewerPlus(Image Viewer Plus) adds zoom, rotate and light switch capabilities
 
 Clicking the image icon in ImgViewerPlus toolbar minimizes/maximizes it.
 
-You can change background and light color in preferences.
+You can change background and light color and disable toolbar from Preferences/Options.
 
 Shortcut keys:
 
@@ -21,5 +21,5 @@ Shortcut keys:
 Credits
 -------
 
-Logo: [gakuseiSean](http://gakuseisean.deviantart.com/)
+Logo: [gakuseiSean](http://gakuseisean.deviantart.com/)  
 Toolbar icons: [Super Mono Icons by Double-J Design](http://www.doublejdesign.co.uk/products-page/icons/super-mono-icons/)
