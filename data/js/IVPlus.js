@@ -12,43 +12,79 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
         if(!color_pattern.test(prefs['light_color'])) prefs['light_color'] = '#f1f1f1';
         // Setting the preferred background color
         $('body').css('background-color', prefs['bg_color']);
+
+	if(!prefs['disable_toolbar']) {
+	    // Adding necessary elements
+	    $('body').prepend('<div id="ivp-toolbar" class="pictxt panel">' +
+			      ' <div id="minimize" class="button">Minimize</div>' +
+			      ' <div id="zoom-in" class="button">Zoom In</div>' +
+			      ' <div id="zoom-out" class="button">Zoom out</div>' +
+			      ' <div id="reset-zoom" class="button">Reset Zoom</div>' +
+			      ' <div id="rotate-ccw" class="button">Rotate Counterclockwise</div>' +
+			      ' <div id="rotate-cw" class="button">Rotate Clockwise</div>' +
+			      ' <div id="reset-img" class="button">Reset Image</div>' +
+			      ' <div id="lights" class="button">Turn on/off the lights</div>' +
+			      '</div>'
+			     );
+	    $('#ivp-toolbar').after('<div id="navigation-container" class="pictxt">' +
+				    '<div id="navigation" class="panel">' +
+				    '  <div id="nav-up" class="button">Up</div>' +
+				    '  <div id="nav-right" class="button">Right</div>' +
+				    '  <div id="nav-down" class="button">Down</div>' +
+				    '  <div id="nav-left" class="button">Left</div>' +
+				    '  <div id="nav-reset" class="button">Reset Position</div>' +
+				    '</div>' +
+				    '</div>'
+				   );
+
+	    $('.panel').hover(
+		function() {
+		    $(this).stop(true, true).fadeTo("fast", 1);
+		},
+		function() {
+		    $(this).stop(true, true).fadeTo("fast", 0.5);
+		}
+	    );
+
+	    $('#minimize').click(function() { minimize(); });
+	    
+	    $('#zoom-in').click(function() { zoom('in'); });
+	    $('#zoom-out').click(function() { zoom('out'); });
+	    $('#reset-zoom').click(function() { reset_img('scale'); });
+
+	    $('#rotate-ccw').click(function() { rotate('ccw'); });
+	    $('#rotate-cw').click(function() { rotate('cw'); });
+	    $('#reset-img').click(function() { reset_img(''); });
+
+	    $('#lights').click(function() { light_switch(); });
+
+	    $('#nav-up').click(function() { translate('down'); });
+	    $('#nav-right').click(function() { translate('left'); });
+	    $('#nav-down').click(function() { translate('up'); });
+	    $('#nav-left').click(function() { translate('right'); });
+	    $('#nav-reset').click(function() { reset_img('translate'); });
+	}
     });
     
     // Using setTimeout to prevent transition on page load
     setTimeout(function(){ $('body').css('-moz-transition', 'background-color 1s') }, 100);
-    
-    // Adding necessary elements
-    $('body').addClass('ImgViewerPlusBody');
-    $('body').prepend('<div id="ivp-toolbar" class="pictxt panel">' +
-                      ' <div id="minimize" class="button">Minimize</div>' +
-                      ' <div id="zoom-in" class="button">Zoom In</div>' +
-                      ' <div id="zoom-out" class="button">Zoom out</div>' +
-                      ' <div id="reset-zoom" class="button">Reset Zoom</div>' +
-                      ' <div id="rotate-ccw" class="button">Rotate Counterclockwise</div>' +
-                      ' <div id="rotate-cw" class="button">Rotate Clockwise</div>' +
-                      ' <div id="reset-img" class="button">Reset Image</div>' +
-                      ' <div id="lights" class="button">Turn on/off the lights</div>' +
-                      '</div>'
-                     );
-    $('#ivp-toolbar').after('<div id="navigation-container" class="pictxt">' +
-                            '<div id="navigation" class="panel">' +
-                            '  <div id="nav-up" class="button">Up</div>' +
-                            '  <div id="nav-right" class="button">Right</div>' +
-                            '  <div id="nav-down" class="button">Down</div>' +
-                            '  <div id="nav-left" class="button">Left</div>' +
-                            '  <div id="nav-reset" class="button">Reset Position</div>' +
-                            '</div>' +
-                            '</div>'
-                           );
 
-    $('.panel').hover(
-        function() {
-            $(this).stop(true, true).fadeTo("fast", 1);
-        },
-        function() {
-            $(this).stop(true, true).fadeTo("fast", 0.5);
-        }
-    );
+    // Scale initialization
+    let scale_num = 1;
+    let scale_range = 0.2;
+
+    // Rotate initialization
+    let rotation_degree = 0;
+
+    // Light initialization
+    let lights = 'off';
+
+    // Translate initialization
+    let translate_x = 0;
+    let translate_y = 0;
+    let translate_range = 50;
+
+    $('body').addClass('ImgViewerPlusBody');
 
     let img = $('img');
 
@@ -58,37 +94,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     // Resizing the window resets all transform functions
     $(window).resize(function() { reset_img(''); });
 
-    $('#minimize').click(function() { minimize(); });
-
-    // Scale initialization
-    let scale_num = 1;
-    let scale_range = 0.2;
-
-    $('#zoom-in').click(function() { zoom('in'); });
-    $('#zoom-out').click(function() { zoom('out'); });
-    $('#reset-zoom').click(function() { reset_img('scale'); });
-
-    // Rotate initialization
-    let rotation_degree = 0;
-
-    $('#rotate-ccw').click(function() { rotate('ccw'); });
-    $('#rotate-cw').click(function() { rotate('cw'); });
-    $('#reset-img').click(function() { reset_img(''); });
-
-    // Light initialization
-    let lights = 'off';
-    $('#lights').click(function() { light_switch(); });
-
-    $('#nav-up').click(function() { translate('down'); });
-    $('#nav-right').click(function() { translate('left'); });
-    $('#nav-down').click(function() { translate('up'); });
-    $('#nav-left').click(function() { translate('right'); });
-    $('#nav-reset').click(function() { reset_img('translate'); });
-
-    // Translate initialization
-    let translate_x = 0;
-    let translate_y = 0;
-    let translate_range = 50;
+    // Declaring keys object and array
     let keys = {};
     let shortcut_keys = [87, 83, 65, 68, 88, 76, 77, 40, 38, 39, 37];
     
@@ -112,7 +118,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
         else if(keys[68]) rotate('cw'); // D
         else if(keys[88]) reset_img(''); // X
         else if(keys[76]) light_switch();   // L
-        else if(keys[77]) minimize();   // M
+        else if(keys[77] && !prefs['disable_toolbar']) minimize();   // M
         else if(keys[40] && keys[37]) translate('up right');  // Down & Left
         else if(keys[40] && keys[39]) translate('up left');   // Down & Right
         else if(keys[38] && keys[37]) translate('down right');   // Up & Left
@@ -124,8 +130,10 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     }
     
     function minimize() {
-        $('#navigation').stop(true, true).fadeToggle(0);
-        $('#ivp-toolbar').stop(true, true).animate({ height: $('#ivp-toolbar').css("height") === "38px" ? "310px" : "38px" }, "fast");
+	if(!prefs['disable_toolbar']) {
+            $('#navigation').stop(true, true).fadeToggle(0);
+            $('#ivp-toolbar').stop(true, true).animate({ height: $('#ivp-toolbar').css("height") === "38px" ? "310px" : "38px" }, "fast");
+	}
     }
     
     function light_switch() {

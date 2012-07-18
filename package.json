@@ -20,6 +20,13 @@
             "value": "#f1f1f1",
             "title": "Light Color",
             "description": "Default: #f1f1f1"
+        },
+        {
+            "type": "bool",
+            "name": "disable_toolbar",
+            "value": false,
+            "title": "Disable Toolbar",
+            "description": "If you only want to use the keyboard shortcuts, check this option."
         }
     ]
 }
