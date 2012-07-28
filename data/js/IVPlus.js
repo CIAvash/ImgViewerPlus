@@ -95,38 +95,50 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     $(window).resize(function() { reset_img(''); });
 
     // Declaring keys object and array
-    let keys = {};
+    let keys = {length: 0};
     let shortcut_keys = [87, 83, 65, 68, 88, 76, 77, 40, 38, 39, 37];
-    
+    let arrow_keys = [40, 38, 39, 37];
+
     // Capturing keys, using "keys" object to capture multiple keys
     $(document).keydown(function(event) {
-        if(shortcut_keys.indexOf(event.which) > -1) {
-            keys[event.which] = true;
-            process_keys(keys);
-            event.preventDefault();
+        if(!event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+            if(!keys[event.which]) {
+                keys[event.which] = true;
+                keys.length++;
+                if(arrow_keys.indexOf(event.which) > -1) event.preventDefault();
+            }
+            if(shortcut_keys.indexOf(event.which) > -1) process_keys(keys);
         }
     }).keyup(function(event) {
-        if(shortcut_keys.indexOf(event.which) > -1) keys[event.which] = false;
+        if(!event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+            if(keys[event.which]) {
+                keys.length--;
+                delete keys[event.which];
+            }
+        }
     });
 
     /* Functions */
     
     function process_keys(keys) {
-        if(keys[87]) zoom('in');    // W
-        else if(keys[83]) zoom('out');  // S
-        else if(keys[65]) rotate('ccw');    // A
-        else if(keys[68]) rotate('cw'); // D
-        else if(keys[88]) reset_img(''); // X
-        else if(keys[76]) light_switch();   // L
-        else if(keys[77] && !prefs['disable_toolbar']) minimize();   // M
-        else if(keys[40] && keys[37]) translate('up right');  // Down & Left
-        else if(keys[40] && keys[39]) translate('up left');   // Down & Right
-        else if(keys[38] && keys[37]) translate('down right');   // Up & Left
-        else if(keys[38] && keys[39]) translate('down left');   // Up & Right
-        else if(keys[40]) translate('up'); // Down
-        else if(keys[38]) translate('down');   // Up
-        else if(keys[39]) translate('left');   // Right
-        else if(keys[37]) translate('right');   // Left
+        if(keys.length === 1) {
+            if(keys[87]) zoom('in');    // W
+            else if(keys[83]) zoom('out');  // S
+            else if(keys[65]) rotate('ccw');    // A
+            else if(keys[68]) rotate('cw'); // D
+            else if(keys[88]) reset_img(''); // X
+            else if(keys[76]) light_switch();   // L
+            else if(keys[77] && !prefs['disable_toolbar']) minimize();   // M
+            else if(keys[40]) translate('up'); // Down
+            else if(keys[38]) translate('down');   // Up
+            else if(keys[39]) translate('left');   // Right
+            else if(keys[37]) translate('right');   // Left
+        } else if(keys.length === 2) {
+            if(keys[40] && keys[37]) translate('up right');  // Down & Left
+            else if(keys[40] && keys[39]) translate('up left');   // Down & Right
+            else if(keys[38] && keys[37]) translate('down right');   // Up & Left
+            else if(keys[38] && keys[39]) translate('down left');   // Up & Right
+       }
     }
     
     function minimize() {
