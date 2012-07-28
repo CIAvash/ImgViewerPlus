@@ -67,7 +67,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     });
     
     // Using setTimeout to prevent transition on page load
-    setTimeout(function(){ $('body').css('-moz-transition', 'background-color 1s') }, 100);
+    setTimeout(function(){ $('body').css({'-moz-transition': 'background-color 1s', 'transition': 'background-color 1s'}) }, 100);
 
     // Scale initialization
     let scale_num = 1;
@@ -372,5 +372,6 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
             if(scale_num <= 0) scale_num = scale_range;
         }    
         img.css('-moz-transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg) translate(' + translate_x + 'px,' + translate_y + 'px)');
+        img.css('transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg) translate(' + translate_x + 'px,' + translate_y + 'px)');
     }
 }

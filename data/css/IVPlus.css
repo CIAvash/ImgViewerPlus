@@ -9,13 +9,14 @@
 
     .ImgViewerPlusBody .pictxt {
         text-indent: -99999px;
-	font-size: 0;
-	text-decoration: none;
-	overflow: hidden;
+        font-size: 0;
+        text-decoration: none;
+        overflow: hidden;
     }
 
     .ImgViewerPlusBody .panel {
         background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+        background: linear-gradient(to right, #ffffff 0%, #e5e5e5 100%);
         border: 2px solid #ccc;
         opacity: 0.5;
         z-index: 99999;
@@ -89,6 +90,7 @@
 
     .ImgViewerPlusBody img {
         -moz-transition: -moz-transform 1s;
+        transition: transform 1s;
     }
 }
 
@@ -98,5 +100,6 @@
     }
     .ImgViewerPlusBody img {
         -moz-transform: none !important;
+        transform: none !important;
     }
 }
