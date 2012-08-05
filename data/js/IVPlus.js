@@ -94,6 +94,17 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     // Resizing the window resets all transform functions
     $(window).resize(function() { reset_img(''); });
 
+    // Mouse wheel event bindings
+    $('html').bind('DOMMouseScroll', function(event) {
+        if(!event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+            let evt = event.originalEvent;
+            evt.detail > 0 ? zoom('out') : zoom('in');
+            evt.preventDefault();
+        }
+    }).bind('mousedown', function(event) {
+        if(event.which === 2 && !event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) reset_img('zoom');
+    });
+
     // Declaring keys object and array
     let keys = {length: 0};
     let shortcut_keys = [87, 83, 65, 68, 88, 76, 77, 40, 38, 39, 37];
