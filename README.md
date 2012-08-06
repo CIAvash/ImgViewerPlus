@@ -7,6 +7,11 @@ Clicking the image icon in ImgViewerPlus toolbar minimizes/maximizes it.
 
 You can change background and light color and disable toolbar from Preferences/Options.
 
+Using Mouse:
+
+* Mouse wheel - Zoom in/out
+* Middle-click - Reset zoom
+
 Shortcut keys:
 
 * `Up, Down, Left, Right` - Movement keys
