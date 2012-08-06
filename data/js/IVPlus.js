@@ -102,7 +102,10 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
             evt.preventDefault();
         }
     }).bind('mousedown', function(event) {
-        if(event.which === 2 && !event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) reset_img('zoom');
+        if(event.which === 2 && !event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+            reset_img('scale');
+            event.preventDefault();
+        }
     });
 
     // Declaring keys object and array
