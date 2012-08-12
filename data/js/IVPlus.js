@@ -88,6 +88,9 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
 
     let img = $('img');
 
+    img.wrap('<div class="ImgWrapper" />');
+    let imgWrapper = $('.ImgWrapper');
+
     // Clicking the image resets transform's scale and translate functions
     img.click(function() { reset_img('scale'); reset_img('translate'); });
 
@@ -229,154 +232,37 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
         transform('rotate');
     }
 
-    // "translate" function determines that in current rotation degree, which direction it should translate
     function translate(dir) {
-        let remained_deg = Math.abs(rotation_degree)%360;
         switch(dir) {
-            case 'up':
-                switch(remained_deg) {
-                    case 0:
-                        translate_y -= translate_range;
-                        break;
-                    case 90:
-                        rotation_degree > 0 ? translate_x -= translate_range : translate_x += translate_range;
-                        break;
-                    case 180:
-                        translate_y += translate_range;
-                        break;
-                    case 270:
-                        rotation_degree > 0 ? translate_x += translate_range : translate_x -= translate_range;
-                        break;
-                }
-                break;
-            case 'down':
-                switch(remained_deg) {
-                    case 0:
-                        translate_y += translate_range;
-                        break;
-                    case 90:
-                        rotation_degree > 0 ? translate_x += translate_range : translate_x -= translate_range;
-                        break;
-                    case 180:
-                        translate_y -= translate_range;
-                        break;
-                    case 270:
-                        rotation_degree > 0 ? translate_x -= translate_range : translate_x += translate_range;
-                        break;
-                }
-                break;
-            case 'left':
-                switch(remained_deg) {
-                    case 0:
-                        translate_x -= translate_range;
-                        break;
-                    case 90:
-                        rotation_degree > 0 ? translate_y += translate_range : translate_y -= translate_range;
-                        break;
-                    case 180:
-                        translate_x += translate_range;
-                        break;
-                    case 270:
-                        rotation_degree > 0 ? translate_y -= translate_range : translate_y += translate_range;
-                        break;
-                }
-                break;
-            case 'right':
-                switch(remained_deg) {
-                    case 0:
-                        translate_x += translate_range;
-                        break;
-                    case 90:
-                        rotation_degree > 0 ? translate_y -= translate_range : translate_y += translate_range;
-                        break;
-                    case 180:
-                        translate_x -= translate_range;
-                        break;
-                    case 270:
-                        rotation_degree > 0 ? translate_y += translate_range : translate_y -= translate_range;
-                        break;
-                }
-                break;
-            case 'up left':
-                switch(remained_deg) {
-                    case 0:
-                        translate_y -= translate_range;
-                        translate_x -= translate_range;
-                        break;
-                    case 90:
-                        rotation_degree > 0 ? translate_y += translate_range : translate_y -= translate_range;
-                        rotation_degree > 0 ? translate_x -= translate_range : translate_x += translate_range;
-                        break;
-                    case 180:
-                        translate_y += translate_range;
-                        translate_x += translate_range;
-                        break;
-                    case 270:
-                        rotation_degree > 0 ? translate_y -= translate_range : translate_y += translate_range;
-                        rotation_degree > 0 ? translate_x += translate_range : translate_x -= translate_range;
-                        break;
-                }
-                break;
-            case 'up right':
-                switch(remained_deg) {
-                    case 0:
-                        translate_y -= translate_range;
-                        translate_x += translate_range;
-                        break;
-                    case 90:
-                        rotation_degree > 0 ? translate_y -= translate_range : translate_y += translate_range;
-                        rotation_degree > 0 ? translate_x -= translate_range : translate_x += translate_range;
-                        break;
-                    case 180:
-                        translate_y += translate_range;
-                        translate_x -= translate_range;
-                        break;
-                    case 270:
-                        rotation_degree > 0 ? translate_y += translate_range : translate_y -= translate_range;
-                        rotation_degree > 0 ? translate_x += translate_range : translate_x -= translate_range;
-                        break;
-                }
-                break;
-            case 'down left':
-                switch(remained_deg) {
-                    case 0:
-                        translate_y += translate_range;
-                        translate_x -= translate_range;
-                        break;
-                    case 90:
-                        rotation_degree > 0 ? translate_y += translate_range : translate_y -= translate_range;
-                        rotation_degree > 0 ? translate_x += translate_range : translate_x -= translate_range;
-                        break;
-                    case 180:
-                        translate_y -= translate_range;
-                        translate_x += translate_range;
-                        break;
-                    case 270:
-                        rotation_degree > 0 ? translate_y -= translate_range : translate_y += translate_range;
-                        rotation_degree > 0 ? translate_x -= translate_range : translate_x += translate_range;
-                        break;
-                }
-                break;
-            case 'down right':
-                switch(remained_deg) {
-                    case 0:
-                        translate_y += translate_range;
-                        translate_x += translate_range;
-                        break;
-                    case 90:
-                        rotation_degree > 0 ? translate_y -= translate_range : translate_y += translate_range;
-                        rotation_degree > 0 ? translate_x += translate_range : translate_x -= translate_range;
-                        break;
-                    case 180:
-                        translate_y -= translate_range;
-                        translate_x -= translate_range;
-                        break;
-                    case 270:
-                        rotation_degree > 0 ? translate_y += translate_range : translate_y -= translate_range;
-                        rotation_degree > 0 ? translate_x -= translate_range : translate_x += translate_range;
-                        break;
-                }
-                break;
+        case 'up':
+            translate_y -= translate_range;
+            break;
+        case 'down':
+            translate_y += translate_range;
+            break;
+        case 'left':
+            translate_x -= translate_range;
+            
+            break;
+        case 'right':
+            translate_x += translate_range;
+            break;
+        case 'up left':
+            translate_y -= translate_range;
+            translate_x -= translate_range;
+            break;
+        case 'up right':
+            translate_y -= translate_range;
+            translate_x += translate_range;
+            break;
+        case 'down left':
+            translate_y += translate_range;
+            translate_x -= translate_range;
+            break;
+        case 'down right':
+            translate_y += translate_range;
+            translate_x += translate_range;
+            break;
         }
         transform('translate');
     }
@@ -384,8 +270,14 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     function transform(transform_func) {
         if(transform_func === 'scale') {
             if(scale_num <= 0) scale_num = scale_range;
-        }    
-        img.css('-moz-transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg) translate(' + translate_x + 'px,' + translate_y + 'px)');
-        img.css('transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg) translate(' + translate_x + 'px,' + translate_y + 'px)');
+        }
+        if(transform_func !== 'translate') {
+            img.css('-moz-transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg)');
+            img.css('transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg)');
+        }
+        if(transform_func !== 'scale' && transform_func !== 'rotate') {
+            imgWrapper.css('-moz-transform', 'translate(' + translate_x + 'px,' + translate_y + 'px)');
+            imgWrapper.css('transform', 'translate(' + translate_x + 'px,' + translate_y + 'px)');
+        }
     }
 }
