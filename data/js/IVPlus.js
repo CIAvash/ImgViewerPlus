@@ -114,9 +114,11 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     let mouse_is_down = false;
     let mouse_down_x = 0;
     let mouse_down_y = 0;
-    
-    $(document).mousedown(function(event) {
-        if(event.target.className === 'ImgViewerPlusImg' && event.which === 2 && !event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+
+    $(document).bind('contextmenu', function() {
+        return false;
+    }).mousedown(function(event) {
+        if(event.target.className === 'ImgViewerPlusImg' && event.which === 3 && !event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
             mouse_is_down = true;
             imgWrapper.css('-moz-transition', 'none');
             imgWrapper.css('transition', 'none');
