@@ -84,6 +84,10 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     let translate_y = 0;
     let translate_range = 50;
 
+    // Flip initialization
+    let rotateX_degree = 0;
+    let rotateY_degree = 0;
+
     $('body').addClass('ImgViewerPlusBody');
 
     let img = $('img');
@@ -136,7 +140,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
 
     // Declaring keys object and array
     let keys = {length: 0};
-    let shortcut_keys = [87, 83, 65, 68, 88, 76, 77, 40, 38, 39, 37];
+    let shortcut_keys = [87, 83, 65, 68, 72, 86, 88, 76, 77, 40, 38, 39, 37];
     let arrow_keys = [40, 38, 39, 37];
 
     // Capturing keys, using "keys" object to capture multiple keys
@@ -166,6 +170,8 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
             else if(keys[83]) zoom('out');  // S
             else if(keys[65]) rotate('ccw');    // A
             else if(keys[68]) rotate('cw'); // D
+            else if(keys[72]) flip('horizontally'); // H
+            else if(keys[86]) flip('vertically');   // V
             else if(keys[88]) reset_img(''); // X
             else if(keys[76]) light_switch();   // L
             else if(keys[77] && !prefs['disable_toolbar']) minimize();   // M
@@ -210,11 +216,17 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
                 translate_x = 0;
                 translate_y = 0;
                 break;
+            case 'flip':
+            	rotateX_degree = 0;
+            	rotateY_degree = 0;
+            	break;
             default:
                 scale_num = 1;
                 reset_rotate();
                 translate_x = 0;
                 translate_y = 0;
+	        rotateX_degree = 0;
+            	rotateY_degree = 0;
         }
         transform('');
     }
@@ -290,15 +302,42 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
         transform('translate');
     }
 
+    function flip(position) {
+        let remained_deg = Math.abs(rotation_degree)%360;
+        if(position === 'vertically') {
+            switch(remained_deg) {
+            case 0:
+            case 180:
+                rotateX_degree = rotateX_degree === 0 ? 180 : 0;
+                break;
+            case 90:
+            case 270:
+                rotateY_degree = rotateY_degree === 0 ? 180 : 0;
+                break;
+            }
+        } else if(position === 'horizontally') {
+            switch(remained_deg) {
+            case 0:
+            case 180:
+                rotateY_degree = rotateY_degree === 0 ? 180 : 0;
+                break;
+            case 90:
+            case 270:
+                rotateX_degree = rotateX_degree === 0 ? 180 : 0;
+                break;
+            }
+        }
+        transform('flip');
+    }
     function transform(transform_func) {
         if(transform_func === 'scale') {
             if(scale_num <= 0) scale_num = scale_range;
         }
         if(transform_func !== 'translate') {
-            img.css('-moz-transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg)');
-            img.css('transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg)');
+            img.css('-moz-transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg) rotateX(' + rotateX_degree + 'deg) rotateY(' + rotateY_degree + 'deg)');
+            img.css('transform', 'scale(' + scale_num + ') rotate(' + rotation_degree + 'deg) rotateX(' + rotateX_degree + 'deg) rotateY(' + rotateY_degree + 'deg)');
         }
-        if(transform_func !== 'scale' && transform_func !== 'rotate') {
+        if(transform_func !== 'scale' && transform_func !== 'rotate' && transform_func !== 'flip') {
             imgWrapper.css('-moz-transform', 'translate(' + translate_x + 'px,' + translate_y + 'px)');
             imgWrapper.css('transform', 'translate(' + translate_x + 'px,' + translate_y + 'px)');
         }
