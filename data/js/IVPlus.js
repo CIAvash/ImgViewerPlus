@@ -87,7 +87,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     $('body').addClass('ImgViewerPlusBody');
 
     let img = $('img');
-
+    img.addClass('ImgViewerPlusImg');
     img.wrap('<div class="ImgWrapper" />');
     let imgWrapper = $('.ImgWrapper');
 
@@ -104,11 +104,34 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
             evt.detail > 0 ? zoom('out') : zoom('in');
             evt.preventDefault();
         }
-    }).bind('mousedown', function(event) {
-        if(event.which === 2 && !event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
-            reset_img('scale');
+    });
+
+    // Mouse Binding
+    let mouse_is_down = false;
+    let mouse_down_x = 0;
+    let mouse_down_y = 0;
+    
+    $(document).mousedown(function(event) {
+        if(event.target.className === 'ImgViewerPlusImg' && event.which === 2 && !event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+            mouse_is_down = true;
+            imgWrapper.css('-moz-transition', 'none');
+            imgWrapper.css('transition', 'none');
+            img.css('cursor', 'move');
+            mouse_down_x = event.clientX - translate_x;
+            mouse_down_y = event.clientY - translate_y;
             event.preventDefault();
         }
+    }).mousemove(function(event) {
+        if(mouse_is_down) {
+            translate_x = event.clientX - mouse_down_x;
+            translate_y = event.clientY - mouse_down_y;
+            transform('translate');
+        }
+    }).mouseup(function(event) {
+        mouse_is_down = false;
+        imgWrapper.css('-moz-transition', '-moz-transform 1s');
+        imgWrapper.css('transition', 'transform 1s');
+        img.css('cursor', 'default');
     });
 
     // Declaring keys object and array
