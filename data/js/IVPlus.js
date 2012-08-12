@@ -71,7 +71,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
 
     // Scale initialization
     let scale_num = 1;
-    let scale_range = 0.2;
+    let scale_range = 0.5;
 
     // Rotate initialization
     let rotation_degree = 0;
@@ -82,7 +82,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     // Translate initialization
     let translate_x = 0;
     let translate_y = 0;
-    let translate_range = 50;
+    let translate_range = 130;
 
     // Flip initialization
     let rotateX_degree = 0;
