@@ -1,7 +1,7 @@
 Description
 -----------
 
-ImgViewerPlus(Image Viewer Plus) adds zoom, rotate and light switch capabilities with smooth animations to Firefox image viewer.
+ImgViewerPlus(Image Viewer Plus) adds zoom, rotate, flip and light switch capabilities with smooth animations to Firefox image viewer.
 
 Clicking the image icon in ImgViewerPlus toolbar minimizes/maximizes it.
 
@@ -9,8 +9,9 @@ You can change background and light color and disable toolbar from Preferences/O
 
 Using Mouse:
 
+* Left-click(on the image) - Reset zoom
 * Mouse wheel - Zoom in/out
-* Middle-click - Reset zoom
+* Right-click(holding right mouse button) - Move image
 
 Shortcut keys:
 
@@ -19,6 +20,8 @@ Shortcut keys:
 * `S` - Zoom Out
 * `D` - Rotate Clockwise
 * `A` - Rotate CounterClockwise
+* `H` - Flip horizontally
+* `V` - Flip vertically
 * `L` - Light Switch
 * `M` - Minimize/Maximize toolbar
 * `X` - Reset Image
