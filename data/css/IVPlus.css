@@ -110,7 +110,7 @@
     .ImgViewerPlusBody #ivp-toolbar, .ImgViewerPlusBody #navigation-container {
         display: none;
     }
-    .ImgViewerPlusBody img {
+    .ImgViewerPlusBody img, .ImgViewerPlusBody .ImgWrapper {
         -moz-transform: none !important;
         transform: none !important;
     }
