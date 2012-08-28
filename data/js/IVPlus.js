@@ -113,6 +113,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     let mouse_is_down = false;
     let mouse_down_x = 0;
     let mouse_down_y = 0;
+    let mouse_cursor = '';
 
     $(document).bind('contextmenu', function() {
         return false;
@@ -121,6 +122,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
             mouse_is_down = true;
             imgWrapper.css('-moz-transition', 'none');
             imgWrapper.css('transition', 'none');
+            mouse_cursor = img.css('cursor') ? img.css('cursor') : 'default';
             img.css('cursor', 'move');
             mouse_down_x = event.clientX - translate_x;
             mouse_down_y = event.clientY - translate_y;
@@ -136,7 +138,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
         mouse_is_down = false;
         imgWrapper.css('-moz-transition', '-moz-transform 1s');
         imgWrapper.css('transition', 'transform 1s');
-        img.css('cursor', 'default');
+        img.css('cursor', mouse_cursor);
     });
 
     // Declaring keys object and array
