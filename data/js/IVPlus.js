@@ -91,7 +91,6 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     $('body').addClass('ImgViewerPlusBody');
 
     let img = $('img');
-    img.addClass('ImgViewerPlusImg');
     img.wrap('<div class="ImgWrapper" />');
     let imgWrapper = $('.ImgWrapper');
 
@@ -118,7 +117,7 @@ if($('head link').attr('href') === 'resource://gre/res/TopLevelImageDocument.css
     $(document).bind('contextmenu', function() {
         return false;
     }).mousedown(function(event) {
-        if(event.target.className === 'ImgViewerPlusImg' && event.which === 3 && !event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+        if(event.target.parentNode.className === 'ImgWrapper' && event.which === 3 && !event.altKey && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
             mouse_is_down = true;
             imgWrapper.css('-moz-transition', 'none');
             imgWrapper.css('transition', 'none');
