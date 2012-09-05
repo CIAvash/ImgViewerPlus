@@ -101,6 +101,7 @@
     }
 
     .ImgViewerPlusBody img {
+        background-color: transparent !important;
         -moz-transition: -moz-transform 1s;
         transition: transform 1s;
     }
