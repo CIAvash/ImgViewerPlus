@@ -3,6 +3,8 @@ Description
 
 ImgViewerPlus(Image Viewer Plus) adds zoom, rotate, flip and light switch capabilities with smooth animations to Firefox image viewer.
 
+Firefox 15 added white background to images, ImgViewerPlus makes the background color transparent.
+
 Clicking the image icon in ImgViewerPlus toolbar minimizes/maximizes it.
 
 You can change background and light color and disable toolbar from Preferences/Options.
