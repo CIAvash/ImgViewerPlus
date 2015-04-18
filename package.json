@@ -3,7 +3,7 @@
     "license": "MPL 2.0",
     "author": "Siavash Askari Nasr",
     "translators": ["Wang.H.K [zh-CN]"],
-    "version": "0.7.2",
+    "version": "0.7.3",
     "fullName": "ImgViewerPlus",
     "id": "jid1-XhgQ9TyZs7M16g",
     "description": "ImgViewerPlus(Image Viewer Plus) adds zoom, rotate and light switch capabilities with smooth animations to Firefox image viewer. It also makes background and light colors customizable.",
@@ -29,5 +29,6 @@
             "title": "Disable Toolbar",
             "description": "If you only want to use the keyboard shortcuts, check this option."
         }
-    ]
+    ],
+	"permissions": {"private-browsing": true}
 }
