@@ -2,12 +2,8 @@
 let prefs;
 self.port.on('prefs', function(prefs_obj) {
     prefs = prefs_obj;
-    // If color preferences are not hex color codes, use the default values
-    color_pattern = /^#(?:[0-9a-f]{3}){1,2}$/i;
-    if(!color_pattern.test(prefs['bg_color'])) prefs['bg_color'] = '#222';
-    if(!color_pattern.test(prefs['light_color'])) prefs['light_color'] = '#f1f1f1';
     // Setting the preferred background color
-    $('body').css('background-color', prefs['bg_color']);
+    $('.ImgWrapper').css('background-color', prefs['bg_color']);
 
     if(!prefs['disable_toolbar']) {
 	// Adding necessary elements
@@ -193,10 +189,10 @@ function minimize() {
 
 function light_switch() {
     if(lights === 'off') {
-        $('body').css('background-color', prefs['light_color']);
+        $('.ImgWrapper').css('background-color', prefs['light_color']);
         lights = 'on';
     } else if(lights === 'on') {
-        $('body').css('background-color', prefs['bg_color']);
+        $('.ImgWrapper').css('background-color', prefs['bg_color']);
         lights = 'off';
     }
 }
