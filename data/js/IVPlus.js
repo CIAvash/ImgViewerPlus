@@ -7,7 +7,7 @@ self.port.on('prefs', function(prefs_obj) {
     if(!color_pattern.test(prefs['bg_color'])) prefs['bg_color'] = '#222';
     if(!color_pattern.test(prefs['light_color'])) prefs['light_color'] = '#f1f1f1';
     // Setting the preferred background color
-    $('body').css('background-color', prefs['bg_color']);
+    $('body').css('background', prefs['bg_color']);
 
     if(!prefs['disable_toolbar']) {
 	// Adding necessary elements
@@ -63,7 +63,7 @@ self.port.on('prefs', function(prefs_obj) {
 });
 
 // Using setTimeout to prevent transition on page load
-setTimeout(function(){ $('body').css({'-moz-transition': 'background-color 1s', 'transition': 'background-color 1s'}) }, 100);
+setTimeout(function () { $('body').css('transition', 'background 1s'); }, 100);
 
 // Scale initialization
 let scale_num = 1;
@@ -193,10 +193,10 @@ function minimize() {
 
 function light_switch() {
     if(lights === 'off') {
-        $('body').css('background-color', prefs['light_color']);
+        $('body').css('background', prefs['light_color']);
         lights = 'on';
     } else if(lights === 'on') {
-        $('body').css('background-color', prefs['bg_color']);
+        $('body').css('background', prefs['bg_color']);
         lights = 'off';
     }
 }
