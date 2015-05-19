@@ -6,6 +6,9 @@
     "version": "0.7.2",
     "fullName": "ImgViewerPlus",
     "id": "jid1-XhgQ9TyZs7M16g",
+    "permissions": {
+        "private-browsing": true
+    },
     "description": "ImgViewerPlus(Image Viewer Plus) adds zoom, rotate and light switch capabilities with smooth animations to Firefox image viewer. It also makes background and light colors customizable.",
     "preferences": [
         {
